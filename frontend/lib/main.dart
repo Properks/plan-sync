@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:plan_sync/screen/auth_screen.dart';
 import 'package:plan_sync/screen/home_screen.dart';
 import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
-import 'package:dotenv/dotenv.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final env = DotEnv(includePlatformEnvironment: true)..load();
+  await dotenv.load(fileName: 'assets/env/.env');
   KakaoSdk.init(
-    nativeAppKey: env['NATIVE_APP_KEY'],
-    javaScriptAppKey: env['JAVASCRIPT_APP_KEY']
+    nativeAppKey: dotenv.env['NATIVE_APP_KEY'],
+    javaScriptAppKey: dotenv.env['JAVASCRIPT_APP_KEY']
   );
   runApp(const MyApp());
 }
